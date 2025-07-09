@@ -2,6 +2,6 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div>helww</div>
+    <div className="p-16" >helww</div>
   );
 }
