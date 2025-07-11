@@ -17,7 +17,7 @@ export const Header_comp = () => {
   const path = usePathname();
 
   return (
-    <header className="fixed top-0 w-full border-b bg-white/95 backdrop-blur z-50 supports-[backdrop-filter]:bg-white/60 flex gap-4 p-4">
+    <header className="fixed top-0 w-full border-b bg-white/95 backdrop-blur z-50 supports-[backdrop-filter]:bg-white/60 flex gap-4 ">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           {" "}
