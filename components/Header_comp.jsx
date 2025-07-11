@@ -1,19 +1,16 @@
 "use client";
 
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/nextjs";
+import React from "react";
+import { Button } from "./ui/button";
+import { LayoutDashboard } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-
+import { SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { useStoreUser } from "@/hooks/use-store-user";
 import { BarLoader } from "react-spinners";
+import { Authenticated, Unauthenticated } from "convex/react";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Unauthenticated } from "convex/react";
+
 
 export const Header_comp = () => {
   const { isLoading } = useStoreUser();
@@ -50,16 +47,48 @@ export const Header_comp = () => {
           </div>
         )}
 
-        <div>
+         <div className="flex items-center gap-4">
+          <Authenticated>
+            <Link href="/dashboard">
+              <Button
+                variant="outline"
+                className="hidden md:inline-flex items-center gap-2 hover:text-green-600 hover:border-green-600 transition"
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                Dashboard
+              </Button>
+              <Button variant="ghost" className="md:hidden w-10 h-10 p-0">
+                <LayoutDashboard className="h-4 w-4" />
+              </Button>
+            </Link>
+
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "w-10 h-10",
+                  userButtonPopoverCard: "shadow-xl",
+                  userPreviewMainIdentifier: "font-semibold",
+                },
+              }}
+              afterSignOutUrl="/"
+            />
+          </Authenticated>
+
           <Unauthenticated>
-            
+            <SignInButton>
+              <Button variant="ghost">Sign In</Button>
+            </SignInButton>
+
+            <SignUpButton>
+              <Button className="bg-green-600 hover:bg-green-700 border-none">
+                Get Started
+              </Button>
+            </SignUpButton>
           </Unauthenticated>
         </div>
-
-       
       </nav>
 
-       {isLoading && <BarLoader width={"100%"} color="#36d7b7" />}
+      {isLoading && <BarLoader width={"100%"} color="#36d7b7" />}
     </header>
   );
 };
